@@ -1,32 +1,48 @@
-# Python Task Manager
+Python Projects
 
-A simple command-line task manager built with Python.
+This repository contains beginner Python projects that I built while learning programming.
 
-## Features
+1. List Manager
+
+A simple console-based task manager.
+
+Features
 
 - Add tasks
 - Delete tasks
 - View tasks
 - Mark tasks as completed
 - Unmark completed tasks
-- Display completed and remaining tasks
-- Automatically saves tasks to a text file
+- Save tasks to a text file
+- Display completed and remaining task count
 
-## Technologies Used
+---
 
-- Python 3
+2. Weather App
 
-## How to Run
+A console-based weather application that fetches live weather information from the internet using an API.
 
-Run:
+Features
 
-```bash
-python lists.py
-```
+- Search weather by city
+- Display temperature
+- Feels-like temperature
+- Humidity
+- Wind speed
+- Weather description
+- Observation time
+- Nearest area
+- Province
+- Country
 
-## Future Improvements
+---
 
-- Edit existing tasks
-- Due dates
-- Task priorities
-- Search tasks
+Technologies Used
+
+- Python
+- Requests Library
+- Git & GitHub
+- JSON
+- Weather API (wttr.in)
+
+These projects were created as part of my Python learning journey.
