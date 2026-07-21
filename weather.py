@@ -21,4 +21,3 @@ while True:
             print()
         except Exception:
             print("Couldn't get weather info!")
-
