@@ -45,11 +45,14 @@ while True:
             if not expenses:
                 break
             else:
-                name=input("Enter expense name to delete: ").strip()
+                name=input("Enter expense name to delete or type no to return: ").strip()
                 if name in expenses:
                     del expenses[name]
                     print("Expense deleted!")
                     save_file()
+                    break
+                elif name=="no".lower():
+                    print("Returning!")
                     break
                 else:
                     print("Expense not found!")

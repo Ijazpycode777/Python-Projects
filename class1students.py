@@ -11,7 +11,8 @@ students=[]
 while True:
     print("\n1.Add students")
     print("2.View students")
-    print("3.Exit\n")
+    print("3.Delete student")
+    print("4.Exit\n")
     choice=input("Enter your choice: ")
     if choice=="1":
         name=input("Enter name of student: ")
@@ -30,6 +31,15 @@ while True:
             for student in students:
                 student.show()
     elif choice=="3":
+        if not students:
+            print("Nothing added yet!")
+        else:
+            name=input("Enter name of student: ")
+            for student in students:
+                if name in students:
+                    students.remove(name)
+
+    elif choice=="4":
         print("Goodbye!")
         break
     else:
