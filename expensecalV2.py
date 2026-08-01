@@ -11,7 +11,6 @@ def save_file():
     with open("expensesV2.txt","w") as file:
         for name,amount in expenses.items():
             file.write(f"{name}:{amount}\n")
-
 while True:
     print("\n=======Expenses calculator V2=======\n")
     print("1.Add expenses or update one")
