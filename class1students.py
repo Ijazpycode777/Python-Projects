@@ -29,6 +29,21 @@ while True:
         else:
             for student in students:
                 student.show()
+    elif choice=="3":
+        if not students:
+            print("Nothing added yet!")
+        else:
+            for i,student in enumerate(students,start=1):
+                print(f"{i}. {student.name}")
+            try:
+                index=int(input("Enter the index of the student you want to delete: "))
+                if 1<=index<=len(students):
+                    del students[index-1]
+                    print("Student deleted.")
+                else:
+                    print("Invalid index.")
+            except ValueError:
+                print("Enter valid digits!")
     elif choice=="4":
         print("Goodbye!")
         break
