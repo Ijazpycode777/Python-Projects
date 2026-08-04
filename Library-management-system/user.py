@@ -9,8 +9,8 @@ class Users:
             print("No books borrowed.")
             return
         else:
-            for book in self.borrowed_books:
-                print(f"-{book.title} by {book.author}")
+            for  i,book in enumerate(self.borrowed_books,start=1):
+                print(f"{i}. {book.title} by {book.author}")
     def return_book(self,book):
         if book in self.borrowed_books:
             book.return_book()

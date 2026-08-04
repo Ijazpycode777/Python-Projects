@@ -53,8 +53,8 @@ def main():
                 elif choice=="2":
                     current_user.show_borrowed_books()
                 elif choice=="3":
-                    current_user.show_borrowed_books()
                     try:
+                        current_user.show_borrowed_books()
                         book_to_return=int(input("Enter the index of the book you want to return: "))
                         selected_book=current_user.borrowed_books[book_to_return-1]
                         current_user.return_book(selected_book)
