@@ -1,17 +1,14 @@
 import psycopg2
 import os
 from dotenv import load_dotenv
-
 load_dotenv("passwordDB.env")
-
 conn = psycopg2.connect(
-    host="localhost",
-    database="expensecalV3",
-    user="postgres",
-    password=os.environ.get("DB_PASSWORD")
+    host=os.getenv("HOST"),
+    database=os.getenv("DATABASE"),
+    user=os.getenv("USER"),
+    password=os.getenv("DB_PASSWORD")
 )
 cur=conn.cursor()
-
 def create_table():
     try:
         cur.execute('''CREATE TABLE IF NOT EXISTS expense_calv3 (
@@ -43,7 +40,7 @@ def delete_expense():
         expense_id = int(input("Enter the expense ID to delete: "))
         cur.execute("SELECT * FROM expense_calv3 WHERE id = %s", (expense_id,))
         expenses = cur.fetchone()
-        if not expenses:
+        if expenses is None:
             print("Expense not found")
         else:
             cur.execute("DELETE FROM expense_calv3 WHERE id = %s", (expense_id,))
@@ -59,8 +56,8 @@ def view_expenses():
         cur.execute("SELECT * FROM expense_calv3")
         expenses = cur.fetchall()
     except psycopg2.Error as e:
-        print(f"Error viewing expenses: {e}")
-    if not expenses:
+        return f"Error viewing expenses: {str(e)}"
+    if expenses is None or len(expenses) == 0:
         print("No expenses found")
     else:
         print("Expenses: ")
@@ -74,7 +71,7 @@ def update_expense():
         return
     cur.execute("SELECT * FROM expense_calv3 WHERE id = %s", (expense_id,))
     expenses = cur.fetchone()
-    if not expenses:
+    if expenses is None:
         print("Expense not found")
     else:
         new_expense = input("Enter the new expense name: ")
@@ -89,21 +86,21 @@ def update_expense():
 def average_expense():
     try: 
         cur.execute("SELECT AVG(amount) FROM expense_calv3")
-        avg = cur.fetchone()[0]
+        avg = cur.fetchone()
         if avg is None:
             print("No expenses found")
         else:
-            print(f"Average expense amount: {avg:.2f}")
+            print(f"Average expense amount: {avg[0]:.2f}")
     except psycopg2.Error as e:
         print(f"Error calculating average expense: {e}")
 def total_expense():
     try:
         cur.execute("SELECT SUM(amount) FROM expense_calv3")
-        total = cur.fetchone()[0]
+        total = cur.fetchone()
         if total is None:
             print("No expenses found")
         else:
-            print(f"Total expense amount: {total:.2f}")
+            print(f"Total expense amount: {total[0]:.2f}")
     except psycopg2.Error as e:
         print(f"Error calculating total expense: {e}")
         max_expense = cur.fetchall()
@@ -111,8 +108,6 @@ def total_expense():
             print("No expenses found")
         else:
             print(f"Maximum expense(s): \n ID: {max_expense[0]} | Name: {max_expense[1]} | Amount: {max_expense[2]}")
-    except psycopg2.Error as e:
-        print(f"Error finding maximum expense: {e}")
 def max_expense():
     try:
         cur.execute("SELECT * FROM expense_calv3 WHERE amount = (SELECT MAX(amount) FROM expense_calv3)")
