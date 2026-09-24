@@ -1,1 +1,4 @@
 passwordDB.env
+__pycache__/
+vscode/
+
