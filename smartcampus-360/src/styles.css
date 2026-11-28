@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Dark mode is driven by the `.dark` class on <html> (see ThemeProvider). */
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    @apply text-slate-800 antialiased;
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+      "Helvetica Neue", Arial, "Noto Sans", "Noto Sans SC", sans-serif;
+  }
+  .dark body { @apply text-slate-100 bg-slate-950; }
+  /* Make the scrollbar match the theme on dark mode. */
+  .dark ::-webkit-scrollbar { width: 10px; height: 10px; }
+  .dark ::-webkit-scrollbar-thumb { @apply bg-slate-700 rounded; }
+  .dark ::-webkit-scrollbar-track { @apply bg-slate-900; }
+}
+
+/* Print-only styling for result cards / fee receipts / timetables. */
+@media print {
+  header, aside, .no-print { display: none !important; }
+  main { padding: 0 !important; }
+}

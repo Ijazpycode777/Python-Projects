@@ -1,0 +1,41 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Build output
+dist/
+build/
+
+# Vite cache
+.vite/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Database and uploads (runtime data — never commit)
+data/*.db
+data/*.db-journal
+data/*.db-wal
+data/*.db-shm
+uploads/*
+!uploads/.gitkeep
+
+# Keep the data directory itself in git
+!data/.gitkeep
+
+# Logs
+logs/
+*.log
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo

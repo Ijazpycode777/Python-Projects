@@ -1,0 +1,2 @@
+Keep this directory so the SQLite database has a stable home.
+The database file (smartcampus.db) is created here on first run and persisted across restarts.

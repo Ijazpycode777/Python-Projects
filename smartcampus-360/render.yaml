@@ -1,0 +1,54 @@
+# SmartCampus 360 — Render Blueprint
+# https://render.com/docs/blueprint-spec
+#
+# One Render Web Service that serves both the API (Express) and the built
+# Vite frontend on a single port. SQLite lives on an attached Render Disk,
+# which is persistent across deploys and restarts.
+#
+# IMPORTANT: Render's free tier does NOT support persistent disks. Use a
+# paid plan (Starter or above) so the disk is preserved between deploys.
+# (On the free tier the database resets on every deploy — that's a Render
+# limitation, not a bug in this app.)
+#
+# Deploy:
+#   1. Push this repo to GitHub/GitLab.
+#   2. In Render: New -> Blueprint -> pick the repo.
+#   3. Render reads render.yaml and creates the service + disk + env vars.
+#   4. After the first deploy, log in with admin / Admin@12345 and change
+#      the password immediately.
+
+services:
+  - type: web
+    name: smartcampus-360
+    runtime: node
+    plan: starter            # required for a persistent disk
+    region: singapore        # change to the region closest to your users
+    branch: main
+    rootDir: .
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000          # Render injects $PORT; we still set a sane default
+      - key: DATABASE_PATH
+        value: /var/data/smartcampus.db
+      - key: FILE_STORAGE_PATH
+        value: /var/data/uploads
+      - key: SESSION_SECRET
+        generateValue: true   # Render generates a strong secret automatically
+      - key: SESSION_ENCRYPTION_KEY
+        generateValue: true
+      - key: FRONTEND_URL
+        # Set this to your Render service URL after the first deploy, e.g.
+        # https://smartcampus-360.onrender.com
+        value: https://smartcampus-360.onrender.com
+      - key: AI_API_KEY
+        sync: false           # optional — leave blank to use local rule-based AI
+    disks:
+      - name: smartcampus-data
+        mountPath: /var/data
+        sizeGB: 1             # 1 GB is plenty for an SQLite college DB + uploads
